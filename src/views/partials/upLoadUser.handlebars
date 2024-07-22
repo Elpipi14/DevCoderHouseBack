@@ -1,0 +1,61 @@
+<div class="upload-container">
+    <h1>Upload files required to upgrade to premium</h1>
+    <form id="uploadForm" class="upload-form" method="post" action="/premium/uploaduser" enctype="multipart/form-data">
+        <label for="product" class="upload-label">Product file upload:</label>
+        <input id="product" name="product" type="file" class="upload-input" /><br />
+        
+        <label for="serviceBill" class="upload-label">Upload service bill:</label>
+        <input id="serviceBill" name="serviceBill" type="file" class="upload-input" /><br />
+        
+        <label for="uploadImg" class="upload-label">Upload photo profile:</label>
+        <input id="uploadImg" name="profile" type="file" class="upload-input" /><br />
+        
+        <button type="submit" class="upload-button">Send</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    try {
+        const response = await fetch('/premium/uploaduser', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (response.status === 200) {
+            Swal.fire({
+                title: 'Welcome',
+                text: result.message,
+                icon: 'success'
+            }).then(() => {
+                window.location.href = result.redirect;
+            });
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: result.message,
+                icon: 'error'
+            });
+        }
+    } catch (error) {
+        console.error('Error uploading documents:', error);
+        Swal.fire({
+            title: 'Error',
+            text: 'Internal server error.',
+            icon: 'error'
+        });
+    }
+});
+</script>
+
+

@@ -1,0 +1,57 @@
+<div id="cart">
+    {{#each products}}
+    <div class="cart-item" data-title="{{this.product.title}}" data-quantity="{{this.quantity}}" data-total="{{multiply this.quantity this.product.price}}">
+        <img src="{{this.product.imageUrl}}" alt="{{this.product.title}}" class="product-image" />
+        <h3 class="product_title">{{this.product.title}}</h3>
+        <div class="product-details">
+            <div class="cart_quantity">
+                <h2>Quantity</h2>
+                <div class="aum_rest">
+                    <form action="/cart/increase/{{../cartId}}/{{this.product._id}}" method="POST">
+                        <button class="btn cart px-auto">+</button>
+                    </form>
+                    <span class="quantity_span">{{this.quantity}}</span>
+                    <form action="/cart/decrease/{{../cartId}}/{{this.product._id}}" method="POST">
+                        <button class="btn cart px-auto">-</button>
+                    </form>
+                </div>
+            </div>
+            <div class="cart_price">Total Price: <span class="price">{{multiply this.quantity this.product.price}} $</span></div>
+            <form action="/cart/delete/{{this.product._id}}?_method=DELETE" method="POST" id="deleteForm-{{this.product._id}}">
+                <button type="submit" class="delete-btn">
+                    <box-icon name="trash-alt" type="solid" animation="tada" color="#7749c7"></box-icon>
+                </button>
+            </form>
+        </div>
+    </div>
+    {{/each}}
+</div>
+<div class="cash">
+    Total to Pay: <span>{{total}} $</span>
+</div>
+<div class="cart_btn">
+    <button class="btn cart px-auto fin">Add Products</button>
+    <form action="/purchase/checkout" method="POST">
+        <button type="submit" class="btn cart px-auto fin">Buy</button>
+    </form>
+</div>
+
+<div class="cart_btn">
+    <button id="checkout_mp" class="btn cart px-auto fin">Buy with MP</button>
+</div>
+
+<script src="../../helpers/multiply.js"></script>
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script src="/js/mercadoPago.js"></script>
+
+{{#if alertMessage}}
+<script>
+  alert('{{alertMessage}}');
+</script>
+{{/if}}
+
+{{#if error}}
+<script>
+  alert('{{error}}');
+</script>
+{{/if}}

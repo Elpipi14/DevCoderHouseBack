@@ -1,0 +1,49 @@
+  <div class="ticket-container">
+    <h1>Customer Purchase History</h1>
+    {{#if tickets.length}}
+      {{#each tickets}}
+        <div class="ticket" data-ticket-id="{{this._id}}">
+          <div class="ticket-info">
+            <p><strong>Ticket ID:</strong> {{this._id}}</p>
+            <p><strong>Date and Time:</strong> {{this.dateTime}}</p>
+          </div>
+          <div class="ticket-actions">
+            <a href="/purchase/tickets/{{this._id}}" class="btn btn-outline-primary">View</a>
+            <button class="btn btn-outline-danger delete-ticket" data-ticket-id="{{this._id}}">Delete</button>
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      <p>You have no purchase history.</p>
+    {{/if}}
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.delete-ticket').forEach(button => {
+        button.addEventListener('click', async (event) => {
+          const ticketId = event.target.getAttribute('data-ticket-id');
+          try {
+            const response = await fetch(`/purchase/admin/tickets/${ticketId}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            });
+
+            if (response.ok) {
+              // Remove the ticket from the UI
+              event.target.closest('.ticket').remove();
+              alert('Ticket deleted successfully');
+            } else {
+              alert('Failed to delete ticket');
+              console.error('Failed to delete ticket');
+            }
+          } catch (error) {
+            alert('Error occurred while deleting the ticket');
+            console.error('Error:', error);
+          }
+        });
+      });
+    });
+  </script>
