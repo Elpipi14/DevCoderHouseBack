@@ -19,10 +19,7 @@ routerUser.post('/request-password-change', controller.requestPasswordChange);
 
 routerUser.post('/forgot-password', controller.forgotPassword);
 
-routerUser.post('/premium/uploaduser', 
-    passport.authenticate('jwt', { session: false, failureRedirect: "/login" }), (req, res, next) => {
-        next();
-    }, 
+routerUser.post('/premium/uploaduser', passport.authenticate('jwt', { session: false, failureRedirect: "/login" }), (req, res, next) => { next(); }, 
     upload.fields([
         { name: 'profile' },
         { name: 'serviceBill' },

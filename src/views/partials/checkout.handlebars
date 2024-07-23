@@ -10,5 +10,17 @@
     <li><strong>Time:</strong> {{ticket.dateTime}}</li>
     <li><strong>Email User:</strong> {{ticket.buyerEmail}}</li>
   </ul>
+  <div class="cart_btn">
+    <button class="btn cart px-auto fin"><a href="/products" class="btn cart" style="margin: 0px; padding:0px; font-weight: 800;">continue shopping</a></button>
 </div>
 </div>
+
+</div>
+    <script>
+        // Detectar si la página se está cargando desde el historial (navegador retrocediendo)
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2)) {
+                window.location.reload();
+            }
+        });
+    </script>

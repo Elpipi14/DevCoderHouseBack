@@ -31,6 +31,10 @@ routerViews.get('/admin/tickets/:id', passport.authenticate("jwt-admin", { sessi
     res.render('partials/panelPurchaseticket');
 });
 
+routerViews.get('/admin/controlclient',passport.authenticate("jwt-admin", { session: false, failureRedirect: "/profile" }),async (req, res) => {
+    res.render('partials/controlClient');
+});
+
 //premium
 routerViews.get('/premium/controlpanel', passport.authenticate('jwt-admin', { session: false, failureRedirect: "/profile" }), async (req, res) => {
     res.render('partials/panelPremium');
