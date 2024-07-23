@@ -614,7 +614,7 @@ footer {
     margin: 0.5rem;
 }
 
-/* CSS seccion aplicando socket */
+/* aplicando socket */
 #form {
     display: flex;
     flex-direction: column;
@@ -655,6 +655,7 @@ footer {
 }
 
 
+/* tickets */
 .ticket-container {
     margin: 1rem;
     background-color: #fff;
@@ -663,7 +664,6 @@ footer {
     flex-direction: column;
     align-items: center;
     max-height: 100%;
-    height: 600px;
   }
   
   h1 {
@@ -719,7 +719,6 @@ footer {
     color: #fff;
   }
   
-  /* Responsive Design */
   @media (max-width: 600px) {
     .ticket-actions {
       flex-direction: column;
@@ -814,6 +813,8 @@ footer {
         padding: 10px;
     }
 }
+
+/* checkOut */
 #Masterclass {
     display: flex;
     justify-content: center;
@@ -871,4 +872,36 @@ footer {
     .ticket-container ul li {
       padding: 8px;
     }
+  }
+
+
+  /* ticket vist */
+  .ticket_vist{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem;
+    max-height: 100%;
+    max-width: 100%;
+
+  }
+  .ticket_vist h1{
+    margin: 2rem;
+  }
+
+  .ticket_vist p{
+    text-align: center;
+    box-sizing: border-box;
+    background: #fcfcfc;
+    box-shadow: 0px 5px 10px rgb(10, 11, 10);
+    padding: 2rem;
+    
+  }
+
+  .ticket_border{
+    text-align: center;
+    box-sizing: border-box;
+    background: #fcfcfc;
+    box-shadow: 0px 5px 10px rgb(10, 11, 10);
+    padding: 2rem;
   }

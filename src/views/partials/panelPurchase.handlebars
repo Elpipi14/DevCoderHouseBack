@@ -1,4 +1,6 @@
-  <div class="ticket-container">
+  <div style="display: flex;
+    justify-content: center;">
+    <div class="ticket-container">
     <h1>Customer Purchase History</h1>
     {{#if tickets.length}}
       {{#each tickets}}
@@ -16,6 +18,7 @@
     {{else}}
       <p>You have no purchase history.</p>
     {{/if}}
+  </div>
   </div>
 
   <script>

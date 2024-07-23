@@ -66,15 +66,20 @@ export const getCart = async (req, res, next) => {
             for (const item of products) {
                 const productId = item.product;
                 const productDetails = await productDao.getById(productId);
-                if (productMap.has(productId)) {
-                    const existingProduct = productMap.get(productId);
-                    existingProduct.quantity += item.quantity;
+                if (!productDetails) {
+                    // El producto no existe, así que eliminarlo del carrito
+                    await cartDao.deleteProduct(cartId, productId);
                 } else {
-                    productMap.set(productId, {
-                        product: productDetails,
-                        quantity: item.quantity,
-                        _id: item._id
-                    });
+                    if (productMap.has(productId)) {
+                        const existingProduct = productMap.get(productId);
+                        existingProduct.quantity += item.quantity;
+                    } else {
+                        productMap.set(productId, {
+                            product: productDetails,
+                            quantity: item.quantity,
+                            _id: item._id
+                        });
+                    }
                 }
             }
 

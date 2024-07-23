@@ -30,7 +30,7 @@
     Total to Pay: <span>{{total}} $</span>
 </div>
 <div class="cart_btn">
-    <button class="btn cart px-auto fin">Add Products</button>
+    <button class="btn cart px-auto fin"><a href="/products" class="btn cart" style="margin: 0px; padding:0px; font-weight: 800;">Add Products</a></button>
     <form action="/purchase/checkout" method="POST">
         <button type="submit" class="btn cart px-auto fin">Buy</button>
     </form>
@@ -43,6 +43,14 @@
 <script src="../../helpers/multiply.js"></script>
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 <script src="/js/mercadoPago.js"></script>
+<script>
+// Detectar si la página se está cargando desde el historial (navegador retrocediendo)
+    window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    });
+</script>
 
 {{#if alertMessage}}
 <script>
