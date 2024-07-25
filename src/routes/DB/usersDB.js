@@ -9,15 +9,17 @@ routerUser.post('/register', controller.register);
 
 routerUser.post("/login", controller.login);
 
-routerUser.get("/profile", passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), controller.profile);
-
-routerUser.get("/logout", controller.logOut);
-
-routerUser.post('/change-password', passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), controller.changePassword);
+routerUser.get("/logOutRegister", controller.logOutRegister);
 
 routerUser.post('/request-password-change', controller.requestPasswordChange);
 
 routerUser.post('/forgot-password', controller.forgotPassword);
+
+routerUser.get("/profile", passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), controller.profile);
+
+routerUser.get("/logout", passport.authenticate('jwt', { session: false, failureRedirect: "/login" }), controller.logOut);
+
+routerUser.post('/change-password', passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), controller.changePassword);
 
 routerUser.post('/premium/uploaduser', passport.authenticate('jwt', { session: false, failureRedirect: "/login" }), (req, res, next) => { next(); }, 
     upload.fields([
@@ -28,5 +30,10 @@ routerUser.post('/premium/uploaduser', passport.authenticate('jwt', { session: f
     validateFiles,
     controller.uploadDocuments
 );
+
+routerUser.get('/admin/controlclient', passport.authenticate('jwt-admin', { session: false, failureRedirect: "/login" }), controller.getAllUserAdmin);
+
+
+routerUser.delete('/admin/controlclient/delete/:userId',passport.authenticate('jwt-admin', { session: false, failureRedirect: "/login" }), controller.deleteUserAdmin);
 
 export default routerUser;

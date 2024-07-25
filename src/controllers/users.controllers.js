@@ -25,7 +25,7 @@ export const register = async (req, res) => {
             generationToken({ email: isRegistered.email }, res);
 
             req.logger.info("Successfully registered user. Redirecting to Login");
-            return res.redirect("/logOut");
+            return res.redirect("/logOutRegister");
         } else {
             // Si el usuario no está registrado correctamente, lanza un error
             req.logger.error("Error during registration");
@@ -89,11 +89,22 @@ export const profile = async (req, res) => {
 };
 
 export const logOut = async (req, res) => {
+    const user = req.user.email
+    await userService.lastConnection(user);
+
     // Destruye la sesión del usuario
     req.logger.info(`LogOut`)
     res.clearCookie("coderHouseToken");
     res.redirect("/login");
 };
+
+export const logOutRegister = async (req, res) => {
+    // Destruye la sesión del usuario
+    req.logger.info(`LogOut`)
+    res.clearCookie("coderHouseToken");
+    res.redirect("/login");
+};
+
 
 export const changePassword = async (req, res) => {
     try {
@@ -210,6 +221,31 @@ export const uploadDocuments = async (req, res) => {
     } catch (error) {
         req.logger.warning('Error uploading documents:', error);
         return res.status(500).json({ message: 'Internal server error.' });
+    }
+};
+
+export const getAllUserAdmin = async (req, res) => {
+    try {
+        const users = await userService.getUsersAdmin();
+        res.render('partials/controlClient.handlebars', { users });
+    } catch (error) {
+        console.error('Error fetching all users:', error.message);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
+export const deleteUserAdmin = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        req.logger.info(`delete user:`, userId)
+        await userService.deleteUserAdmin(userId);
+        const users = await userService.getUsersAdmin();
+        req.logger.info(`delete user OK`)
+        res.status(200).render('partials/controlClient.handlebars', { users });
+    } catch (error) {
+        console.error('Error deleting user:', error.message);
+        req.logger.warning(`Delete process error: ${error.message}`);
+        res.status(500).send('Internal Server Error');
     }
 };
 

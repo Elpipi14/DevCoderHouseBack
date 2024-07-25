@@ -939,6 +939,9 @@ h2 {
     align-items: center;
     padding: 10px;
     border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .user-item:last-child {

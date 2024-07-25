@@ -72,6 +72,8 @@ export default class UserManager {
                 throw new Error("Incorrect password");
             }
 
+            // userExist.last_connection = new Date();
+
             return userExist;
         } catch (error) {
             throw error;
@@ -134,7 +136,6 @@ export default class UserManager {
         }
     }
 
-     // Actualiza los documentos del usuario
      async updateUserDocuments(userId, updateData) {
         try {
             const user = await UserModel.findById(userId);
@@ -160,7 +161,6 @@ export default class UserManager {
         }
     }
 
-    // Actualiza el rol del usuario a "premium"
     async updateUserToPremium(userId) {
         try {
             const user = await UserModel.findById(userId);
@@ -183,6 +183,42 @@ export default class UserManager {
             }
         } catch (error) {
             console.error('Error updating user to premium:', error);
+            throw error;
+        }
+    }
+
+    async lastConnection(email) {
+        try {
+            const user = await UserModel.findOne({ email });
+
+            if (!user) {
+                throw new Error("User not found");
+            }
+
+            user.last_connection = new Date();
+            await user.save();
+
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getUsersAdmin() {
+        try {
+            const users = await UserModel.find();
+            return users;
+        } catch (error) {
+            console.error("Error displaying user", error);
+            throw error;
+        }
+    }
+    async deleteUserAdmin(userId) {
+        try {
+            const deletedUser = await UserModel.findByIdAndDelete(userId);
+            return deletedUser;
+        } catch (error) {
+            console.error("Error deleting user:", error);
             throw error;
         }
     }
