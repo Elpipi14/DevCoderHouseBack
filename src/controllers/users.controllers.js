@@ -105,7 +105,6 @@ export const logOutRegister = async (req, res) => {
     res.redirect("/login");
 };
 
-
 export const changePassword = async (req, res) => {
     try {
         const { newPassword, confirmPassword, oldPassword } = req.body;

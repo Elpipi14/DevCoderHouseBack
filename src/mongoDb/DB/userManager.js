@@ -65,7 +65,7 @@ export default class UserManager {
             const userExist = await UserModel.findOne({ email });
 
             if (!userExist) {
-                throw new Error("Email is not correct");
+                throw new Error("Email is not exist");
             }
 
             if (!isValidPassword(password, userExist.password)) {
