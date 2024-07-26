@@ -3,7 +3,7 @@ import {MercadoPagoConfig, Preference} from "mercadopago";
 
 //Configuramos las credenciales: 
 const client = new MercadoPagoConfig({
-    access_token: "APP_USR-6111648705634288-071809-24efc5952280b50fcd95b77c0f3bcbaa-1905366945",
+    access_token: "..",
 })
 
 
