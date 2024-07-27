@@ -68,54 +68,55 @@ Este proyecto es una tienda en línea para la venta de zapatillas. La aplicació
   npm start
 ```
 
-Estructura del Proyecto
-plaintext
-Copiar código
 src/
 │
 ├── config/
-│   ├── passport.config.js
-│   └── config.js
+│   ├── passport.config.js          # Configuración de estrategias de autenticación Passport.
+│   └── config.js                   # Configuración general de la aplicación.
 ├── helpers/
-│   ├── multiply.js
-│   ├── swagger/
-│   │   └── swagger.js
+│   ├── multiply.js                 # Funciones auxiliares, como la función 'multiply'.
+│   └── swagger/
+│       └── swagger.js              # Configuración y setup de Swagger para la documentación de la API.
 ├── middleware/
-│   └── errors.js
+│   └── errors.js                   # Middleware para el manejo de errores.
 ├── mongoDb/
 │   └── connection/
-│       └── mongooseConnection.js
+│       └── mongooseConnection.js   # Configuración y conexión a la base de datos MongoDB.
 ├── public/
-│   └── (archivos estáticos)
+│   └── (archivos estáticos como CSS, JavaScript, imágenes)
 ├── routes/
-│   └── routes.js
+│   └── routes.js                  # Definición de rutas de la aplicación.
 ├── socket/
-│   └── socket.io.js
+│   └── socket.io.js               # Configuración de Socket.io para comunicación en tiempo real.
 ├── utils/
-│   └── logger.js
+│   └── logger.js                  # Configuración de Winston para el registro de logs.
 └── views/
-  └── (plantillas Handlebars)
+    └── (plantillas Handlebars para vistas dinámicas)
+
 
 Descripción de los Archivos Principales
-  app.js: Archivo principal que configura y arranca el servidor.
-  mongooseConnection.js: Configuración y conexión a la base de datos MongoDB.
-  passport.config.js: Configuración de estrategias de autenticación.
-  routes.js: Definición de rutas de la aplicación.
-  socket.io.js: Configuración de Socket.io para comunicación en tiempo real.
-  swagger.js: Configuración y setup de Swagger para la documentación de la API.
-  logger.js: Configuración de Winston para el registro de logs.
-  errors.js: Middleware para el manejo de errores.
-  Funcionalidades Clave
-  Autenticación: Utiliza Passport.js con estrategias locales y de terceros (GitHub).
-  Compresión: Middleware para comprimir las respuestas HTTP.
-  Manejo de Errores: Middleware centralizado para el manejo de errores.
-  Documentación de API: Swagger para documentar y probar la API.
-  Subida de Archivos: Utiliza Multer para gestionar la subida de archivos.
-  Pagos: Integración con MercadoPago para procesar pagos.
-  Vistas Dinámicas: Utiliza Handlebars para generar vistas dinámicas.
-  Logs: Utiliza Winston para el registro de eventos y errores.
-  Notificaciones: Utiliza SweetAlert2 para mostrar notificaciones al usuario.
+app.js: Archivo principal que configura y arranca el servidor.
+mongooseConnection.js: Configuración y conexión a la base de datos MongoDB.
+passport.config.js: Configuración de estrategias de autenticación.
+routes.js: Definición de rutas de la aplicación.
+socket.io.js: Configuración de Socket.io para comunicación en tiempo real.
+swagger.js: Configuración y setup de Swagger para la documentación de la API.
+logger.js: Configuración de Winston para el registro de logs.
+errors.js: Middleware para el manejo de errores.
+Funcionalidades Clave
+Autenticación: Utiliza Passport.js con estrategias locales y de terceros (GitHub).
+Compresión: Middleware para comprimir las respuestas HTTP.
+Manejo de Errores: Middleware centralizado para el manejo de errores.
+Documentación de API: Swagger para documentar y probar la API.
+Subida de Archivos: Utiliza Multer para gestionar la subida de archivos.
+Pagos: Integración con MercadoPago para procesar pagos.
+Vistas Dinámicas: Utiliza Handlebars para generar vistas dinámicas.
+Logs: Utiliza Winston para el registro de eventos y errores.
+Notificaciones: Utiliza SweetAlert2 para mostrar notificaciones al usuario.
 
-4. Contribuir
-  Las contribuciones son bienvenidas. Por favor, abre un issue o envía un pull request.
 ````
+
+Contribuir
+Las contribuciones son bienvenidas. Por favor, abre un issue o envía un pull request.
+
+Licencia
