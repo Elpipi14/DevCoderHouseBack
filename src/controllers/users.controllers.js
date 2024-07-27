@@ -102,7 +102,7 @@ export const logOutRegister = async (req, res) => {
     // Destruye la sesión del usuario
     req.logger.info(`LogOut`)
     res.clearCookie("coderHouseToken");
-    res.redirect("/login");
+    res.redirect("/login?message=Register successfully");
 };
 
 export const changePassword = async (req, res) => {
