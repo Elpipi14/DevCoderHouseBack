@@ -2,7 +2,7 @@ import passport from "passport";
 import jwt from "passport-jwt";
 import GitHubStrategy from "passport-github2";
 import configObject from '../config/config.js';
-const { private_key, client_id, client_secret } = configObject;
+const { private_key, client_id_git, client_secret_git  } = configObject;
 import { UserModel } from "../mongoDb/schema/user.model.js";
 
 const JWT_SECRET = private_key;
@@ -53,8 +53,8 @@ const initializePassport = () => {
   }));
 
   passport.use("github", new GitHubStrategy({
-    clientID: client_id,
-    clientSecret: client_secret,
+    clientID: client_id_git,
+    clientSecret: client_secret_git,
     callbackURL: "http://localhost:8080/github",
     scope: ['user', 'users:email']
   }, async (accessToken, refreshToken, profile, done) => {

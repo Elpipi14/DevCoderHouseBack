@@ -15,9 +15,9 @@ const configObject = {
     jwt_key: process.env.JWT_KEY,
     node_log: process.env.NODE_LOG,
     port: process.env.PORT,
-    client_id: process.env.CLIENT_ID,
-    client_secret: process.env.CLIENT_SECRET,
-    pass_code: process.env.PASS_CODE
+    client_id_git: process.env.CLIENT_ID,
+    client_secret_git: process.env.CLIENT_SECRET,
+    session_secret: process.env.SESSION_SECRET
 };
 
 export default configObject;
