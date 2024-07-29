@@ -17,7 +17,7 @@ const configObject = {
     port: process.env.PORT,
     client_id_git: process.env.CLIENT_ID,
     client_secret_git: process.env.CLIENT_SECRET,
-    session_secret: process.env.SESSION_SECRET
+    session_secret: process.env.SESSION_SECRET || 'default_session_secret'
 };
 
 export default configObject;

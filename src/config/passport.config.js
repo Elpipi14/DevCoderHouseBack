@@ -1,11 +1,10 @@
 import passport from "passport";
 import jwt from "passport-jwt";
-import GitHubStrategy from "passport-github2";
+import { Strategy as GitHubStrategy } from "passport-github2";
 import configObject from '../config/config.js';
-const { private_key, client_id_git, client_secret_git  } = configObject;
 import { UserModel } from "../mongoDb/schema/user.model.js";
 
-const JWT_SECRET = private_key;
+const { private_key, client_id_git, client_secret_git } = configObject;
 const JWTStrategy = jwt.Strategy;
 const ExtractJwt = jwt.ExtractJwt;
 
@@ -18,10 +17,9 @@ const cookieExtractor = (req) => {
 }
 
 const initializePassport = () => {
-
   const jwtExtractor = {
     jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
-    secretOrKey: JWT_SECRET,
+    secretOrKey: private_key,
   };
 
   passport.use("jwt", new JWTStrategy(jwtExtractor, async (jwt_payload, done) => {
@@ -101,5 +99,3 @@ const initializePassport = () => {
 };
 
 export default initializePassport;
-
-
