@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
   gender: {
     type: String,
   },
+  isGithub: { type: Boolean, default: false },
   password: {
     type: String,
     required: true,

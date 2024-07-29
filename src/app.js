@@ -35,7 +35,9 @@ import { setupSwagger } from './helpers/swagger/swagger.js'
 import cors from "cors"
 
 import configObject from './config/config.js';
-const { port } = configObject;
+const { port, pass_code } = configObject;
+
+import session from 'express-session';
 
 // Designa el puerto
 const PORT = port || 3000;
@@ -72,7 +74,13 @@ app.use(express.static('./src/public'));
 // Instancia passport y configura el middleware de cookies para la estrategia
 app.use(passport.initialize());
 initializePassport();
+app.use(session({
+    secret: pass_code,
+    resave: false,
+    saveUninitialized: true,
+}));
 app.use(cookieParser());
+
 
 //logger
 app.use(addLogger);

@@ -4,6 +4,8 @@ import passport from "passport";
 import ChatManager from "../../mongoDb/DB/chat.manager.js";
 import { getAllTickets } from '../../controllers/ticket.controllers.js';
 
+import generationToken from '../../utils/jwt.js';
+
 const routerViews = Router();
 const chatManager = new ChatManager();
 
@@ -123,11 +125,21 @@ routerViews.get('/login', async (req, res) => {
 
 routerViews.get('/register-gitHub', passport.authenticate("github", { scope: ["user:email"] }));
 
-routerViews.get('/gitHub', passport.authenticate('github', { failureRedirect: "/login" }), async (req, res) => {
-    //La estrategia de GitHub nos retornará el usurio, entonces lo agregamos a nuestro objeto de session: 
-    req.session.user = req.user;
-    req.session.login = true;
-    res.redirect("/profile");
+routerViews.get('/github', passport.authenticate('github', { failureRedirect: "/login" }), (req, res) => {
+    try {
+        // Generar y almacenar el token en una cookie
+        generationToken({ user: { _id: req.user._id, email: req.user.email, role: req.user.role} }, res);
+
+        // Guardar el usuario en la sesión
+        req.session.user = req.user;
+        req.session.login = true;
+
+        // Redirigir a perfil después de autenticarse con GitHub
+        res.redirect("/profile");
+    } catch (error) {
+        console.error("Error handling GitHub callback:", error);
+        res.status(500).send({ status: "error", error: "Internal server error" });
+    }
 });
 
 // Renderiza UploadUser
