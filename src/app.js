@@ -28,8 +28,8 @@ import addLogger from "./utils/logger.js"
 //swagger 
 import { setupSwagger } from './helpers/swagger/swagger.js'
 //import Cors
-import cors from "cors"
-
+import cors from "cors";
+import session from 'express-session';
 import configObject from './config/config.js';
 import MongoStore from 'connect-mongo';
 const { port, pass_code, mongo_url } = configObject;
