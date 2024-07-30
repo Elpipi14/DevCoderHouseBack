@@ -6,7 +6,7 @@ const routerCartDB = Router();
 routerCartDB.get("/", passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), controller.getCart);
 routerCartDB.post("/add/:productId", passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), controller.addToCart);
 routerCartDB.delete('/delete/:productId', passport.authenticate("jwt", { session: false }), controller.deleteProduct);
-// routerCartDB.delete("/deleteId/:cId", passport.authenticate("jwt", { session: false }), controller.deleteCart);
+routerCartDB.post('/empty', passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), controller.emptyCart);
 routerCartDB.post('/increase/:cartId/:productId', controller.increaseProductQuantity);
 routerCartDB.post('/decrease/:cartId/:productId', controller.decreaseProductQuantity);
 

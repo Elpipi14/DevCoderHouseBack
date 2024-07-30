@@ -183,5 +183,19 @@ export const decreaseProductQuantity = async (req, res) => {
     }
 };
 
+export const emptyCart = async (req, res) => {
+    try {
+        if (req.isAuthenticated() && req.user.cartId) {
+            const cartId = req.user.cartId;
+            // Utiliza el cartDao para vaciar el carrito sin eliminarlo
+            await cartDao.emptyCart(cartId);
+        }
+        res.redirect('/cart');
+    } catch (error) {
+        console.error('Error emptying cart:', error.message);
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 
 

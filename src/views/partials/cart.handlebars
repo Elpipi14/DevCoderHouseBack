@@ -38,6 +38,11 @@
     <div class="cash">
         Total to Pay: <span>{{total}} $</span>
     </div>
+    <form action="/cart/empty" method="POST" class="cart_btn">
+        <button type="submit" class="btn cart px-auto fin">
+            delete products
+        </button>
+    </form>
     <div class="cart_btn">
         <button class="btn cart px-auto fin"><a href="/products" class="btn cart" style="margin: 0px; padding:0px; font-weight: 800;">Add Products</a></button>
         <form action="/purchase/checkout" method="POST">

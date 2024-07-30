@@ -203,4 +203,32 @@ export default class CartsManager {
         }
     }
 
+    async emptyCart(cartId) {
+        try {
+            const cart = await CartModel.findById(cartId);
+            if (!cart) {
+                throw new Error(`Cart not found for ID: ${cartId}`);
+            }
+    
+            // Revertir el stock de los productos en el carrito
+            for (const item of cart.products) {
+                const product = await ProductsModel.findById(item.product);
+                if (product) {
+                    product.stock += item.quantity;
+                    await product.save();
+                }
+            }
+    
+            // Vaciar el carrito y actualizar el total
+            cart.products = [];
+            cart.total = 0;
+    
+            const updatedCart = await cart.save();
+            return updatedCart;
+        } catch (error) {
+            console.error('Error emptying cart:', error);
+            throw error;
+        }
+    }
+
 }
