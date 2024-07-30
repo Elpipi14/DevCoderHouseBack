@@ -125,16 +125,11 @@ routerViews.get('/login', async (req, res) => {
 
 routerViews.get('/register-gitHub', passport.authenticate("github", { scope: ["user:email"] }));
 
-routerViews.get('/github', passport.authenticate('github', { failureRedirect: "/login" }), (req, res) => {
+routerViews.get('/github', passport.authenticate("github", { failureRedirect: "/login" }), (req, res) => {
     try {
-        // Generar y almacenar el token en una cookie
         generationToken({ user: { _id: req.user._id, email: req.user.email, role: req.user.role} }, res);
-
-        // Guardar el usuario en la sesión
         req.session.user = req.user;
         req.session.login = true;
-
-        // Redirigir a perfil después de autenticarse con GitHub
         res.redirect("/profile");
     } catch (error) {
         console.error("Error handling GitHub callback:", error);
