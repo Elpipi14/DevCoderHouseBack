@@ -36,7 +36,7 @@ const { port, pass_code, mongo_url } = configObject;
 
 
 // Designa el puerto
-const PORT = port || 3000;
+const PORT = port || 8080;
 // Crea una nueva instancia de la aplicación Express
 const app = express();
 
