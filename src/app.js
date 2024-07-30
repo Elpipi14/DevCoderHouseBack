@@ -22,22 +22,18 @@ import exphbs from "express-handlebars";
 import { multiply } from "./helpers/multiply.js";
 // Importa method-override
 import methodOverride from "method-override";
-
 import handlingError from "./middleware/errros.js";
-
 //logger winston
 import addLogger from "./utils/logger.js"
-
 //swagger 
 import { setupSwagger } from './helpers/swagger/swagger.js'
-
 //import Cors
 import cors from "cors"
 
 import configObject from './config/config.js';
-const { port, pass_code } = configObject;
+import MongoStore from 'connect-mongo';
+const { port, pass_code, mongo_url } = configObject;
 
-import session from 'express-session';
 
 // Designa el puerto
 const PORT = port || 3000;
@@ -78,7 +74,11 @@ app.use(session({
     secret: pass_code,
     resave: false,
     saveUninitialized: true,
-}));
+    store: MongoStore.create({
+      mongoUrl: mongo_url,
+      ttl: 15 * 60, // 14 días de vida para la sesión
+    })
+  }));
 app.use(cookieParser());
 
 
