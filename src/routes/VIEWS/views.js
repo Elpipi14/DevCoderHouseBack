@@ -119,8 +119,8 @@ routerViews.post('/contact/send', async (req, res) => {
 });
 
 //Login
-routerViews.get('/login', async (req, res) => {
-    res.render('partials/login');
+routerViews.get('/login', passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), async (req, res) => {
+    res.render('partials/profile');
 });
 
 routerViews.get('/register-gitHub', passport.authenticate("github", { scope: ["user:email"] }));
