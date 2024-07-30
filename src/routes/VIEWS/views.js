@@ -4,8 +4,6 @@ import passport from "passport";
 import ChatManager from "../../mongoDb/DB/chat.manager.js";
 import { getAllTickets } from '../../controllers/ticket.controllers.js';
 
-import generationToken from '../../utils/jwt.js';
-
 const routerViews = Router();
 const chatManager = new ChatManager();
 
@@ -121,20 +119,6 @@ routerViews.post('/contact/send', async (req, res) => {
 //Login
 routerViews.get('/login', async (req, res) => {
     res.render('partials/login');
-});
-
-routerViews.get('/register-gitHub', passport.authenticate("github", { scope: ["user:email"] }));
-
-routerViews.get('/github', passport.authenticate("github", { failureRedirect: "/login" }), (req, res) => {
-    try {
-        generationToken({ user: { _id: req.user._id, email: req.user.email, role: req.user.role} }, res);
-        req.session.user = req.user;
-        req.session.login = true;
-        res.redirect("/profile");
-    } catch (error) {
-        console.error("Error handling GitHub callback:", error);
-        res.status(500).send({ status: "error", error: "Internal server error" });
-    }
 });
 
 // Renderiza UploadUser

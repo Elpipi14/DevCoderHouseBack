@@ -29,14 +29,13 @@ import addLogger from "./utils/logger.js"
 import { setupSwagger } from './helpers/swagger/swagger.js'
 //import Cors
 import cors from "cors";
-import session from 'express-session';
-import configObject from './config/config.js';
-import MongoStore from 'connect-mongo';
-const { port, pass_code, mongo_url } = configObject;
 
+import configObject from './config/config.js';
+const { port } = configObject;
 
 // Designa el puerto
 const PORT = port || 8080;
+
 // Crea una nueva instancia de la aplicación Express
 const app = express();
 
@@ -45,13 +44,15 @@ app.use(cors());
 
 // Middleware para la compresión gzip
 app.use(compression());
+
 // Middleware para soportar métodos HTTP adicionales a través de _method
 app.use(methodOverride('_method'));
+
 // Middleware para analizar y convertir las solicitudes codificadas en URL a un objeto JavaScript
 app.use(express.urlencoded({ extended: true }));
+
 // Middleware para analizar las solicitudes con cuerpo JSON
 app.use(express.json());
-
 app.engine("handlebars", exphbs.engine({
     runtimeOptions: {
         allowProtoPropertiesByDefault: true,
@@ -70,19 +71,7 @@ app.use(express.static('./src/public'));
 // Instancia passport y configura el middleware de cookies para la estrategia
 app.use(passport.initialize());
 initializePassport();
-app.use(session({
-    secret: pass_code,
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-      mongoUrl: mongo_url,
-      collection: 'sessions',
-      ttl: 15 * 60,
-    }),
-    cookie: { maxAge: 450000 }
-  }));
 app.use(cookieParser());
-
 
 //logger
 app.use(addLogger);
