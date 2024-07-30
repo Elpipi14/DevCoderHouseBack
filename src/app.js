@@ -76,8 +76,10 @@ app.use(session({
     saveUninitialized: true,
     store: MongoStore.create({
       mongoUrl: mongo_url,
-      ttl: 15 * 60, // 14 días de vida para la sesión
-    })
+      collection: 'sessions',
+      ttl: 15 * 60,
+    }),
+    cookie: { maxAge: 450000 }
   }));
 app.use(cookieParser());
 
