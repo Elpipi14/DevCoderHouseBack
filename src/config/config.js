@@ -18,7 +18,7 @@ const configObject = {
     client_id_git: process.env.CLIENT_ID,
     client_secret_git: process.env.CLIENT_SECRET,
     pass_code: process.env.PASS_CODE,
-    url_back: process.env.URL_BACK
+    url_back: process.env.URL_GIT
 };
 
 export default configObject;
