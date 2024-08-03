@@ -171,7 +171,6 @@ export const increaseProductQuantity = async (req, res) => {
     }
 };
 
-
 export const decreaseProductQuantity = async (req, res) => {
     try {
         const { cartId, productId } = req.params;
@@ -197,5 +196,29 @@ export const emptyCart = async (req, res) => {
     }
 };
 
+export const counterCart = async (req, res) =>{
+    try {
+        // Verifica si el usuario tiene un cartId
+        if (!req.user || !req.user.cartId) {
+            return res.status(400).json({ error: 'Invalid user or cart ID' });
+        }
+
+        // Obtiene el carrito por ID
+        const cart = await cartDao.getById(req.user.cartId);
+
+        // Calcula el total de items en el carrito
+        let totalItems = 0;
+        cart.products.forEach(item => {
+            totalItems += item.quantity;
+        });
+
+        // Devuelve el total de items
+        res.json({ totalItems });
+    } catch (error) {
+        // Manejo de errores específico y detallado
+        console.error(`Error fetching cart data: ${error.message}`);
+        res.status(500).json({ error: 'Error fetching cart data' });
+    }
+}
 
 

@@ -9,6 +9,7 @@ routerCartDB.delete('/delete/:productId', passport.authenticate("jwt", { session
 routerCartDB.post('/empty', passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), controller.emptyCart);
 routerCartDB.post('/increase/:cartId/:productId', controller.increaseProductQuantity);
 routerCartDB.post('/decrease/:cartId/:productId', controller.decreaseProductQuantity);
+routerCartDB.get("/totalItems", passport.authenticate("jwt", { session: false, failureRedirect: "/login" }), controller.counterCart);
 
 
 export default routerCartDB;
