@@ -533,23 +533,24 @@ footer {
     height: 800px;
 }
 
+/* Ajustes para el contenedor del chat */
 .chat {
     margin: 1rem;
-    height: 300px;
+    max-height: 500px; /* Limitar la altura máxima */
     max-width: 800px;
     border: 1px solid #ccc;
     border-radius: 15px;
-    overflow-y: visible;
+    overflow-y: auto; /* Agregar barra de desplazamiento si es necesario */
     border-color: black !important;
     border-width: 2px;
     opacity: 95%;
     box-shadow: 0px 5px 10px rgb(10, 11, 10);
 }
 
-#output p {
-    color: #aaa;
-    padding: 14px 0;
-    margin: 0 20px;
+/* Contenedor de mensajes */
+#output {
+    padding: 1rem;
+    word-wrap: break-word; /* Asegura que el texto largo no desborde */
 }
 
 #actions p {
